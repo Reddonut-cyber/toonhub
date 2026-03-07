@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Http\Controllers\WelcomeController::class)->name('home');
 
+Route::get('comics', [\App\Http\Controllers\ComicController::class, 'index'])->name('comics.index');
+Route::get('comics/{comic}', [\App\Http\Controllers\ComicController::class, 'show'])->name('comics.show');
+
 // user zone
 
 Route::view('dashboard', 'dashboard')
