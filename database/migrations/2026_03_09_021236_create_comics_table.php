@@ -18,8 +18,6 @@ return new class extends Migration
         $table->string('status')->default('Ongoing');
         $table->string('comic_web')->nullable();
         
-        $table->foreignId('category_id')->constrained()->onDelete('cascade');
-        
         $table->timestamps();
     });
     }
