@@ -13,8 +13,7 @@ class Comic extends Model
         'name', 
         'summary', 
         'status', 
-        'comic_web', 
-        'category_id'
+        'comic_web'
     ];
 
     public function category()
