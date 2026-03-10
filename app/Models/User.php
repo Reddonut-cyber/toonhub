@@ -46,7 +46,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function favoriteComics()
+    public function favorites()
     {
         return $this->belongsToMany(Comic::class, 'favorites');
     }
