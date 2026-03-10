@@ -24,6 +24,13 @@
         </div>
 
         <div class="md:w-1/2 p-10">
+            @if (Route::has('login'))
+                @auth
+                    <div class="flex flex-col justify-center h-full">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">ยินดีต้อนรับกลับ!</h2>
+                        <a href="{{ url('/dashboard') }}" class="w-full py-3 px-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-center rounded-lg transition duration-200 shadow-lg">เข้าสู่ระบบจัดการการ์ตูน</a>
+                    </div>
+                @else
             <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">เข้าสู่ระบบ</h2>
             
             <form action="/login" method="POST" class="space-y-6">
@@ -49,6 +56,8 @@
             <div class="mt-8 text-center">
                 <p class="text-sm text-gray-600">ยังไม่มีบัญชีใช่ไหม? <a href="/register" class="text-orange-500 font-bold hover:underline">สมัครสมาชิก</a></p>
             </div>
+                @endauth
+            @endif
         </div>
 
     </div>
