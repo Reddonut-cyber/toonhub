@@ -16,9 +16,9 @@ class Comic extends Model
         'comic_web'
     ];
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function favoritedBy()

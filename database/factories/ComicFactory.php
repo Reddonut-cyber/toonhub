@@ -17,8 +17,8 @@ class ComicFactory extends Factory
     public function definition(): array
     {
         return [
-        'name' => $this->faker->words(3, true), 
-        'summary' => $this->faker->paragraph(), 
+        'name' => $this->faker->sentence(3),
+        'summary' => $this->faker->paragraph(),
         'status' => $this->faker->randomElement(['Ongoing', 'Completed']),
         'comic_web' => $this->faker->url(),
     ];
