@@ -21,7 +21,6 @@ class ComicFactory extends Factory
         'summary' => $this->faker->paragraph(), 
         'status' => $this->faker->randomElement(['Ongoing', 'Completed']),
         'comic_web' => $this->faker->url(),
-        'category_id' => \App\Models\Category::factory(), 
     ];
     }
 }
