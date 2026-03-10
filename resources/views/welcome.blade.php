@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToonHub - Welcome & Login</title>
+    <title>ToonHub - สังคมคนรักการ์ตูน</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -14,49 +14,55 @@
 
     <div class="max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         
-        <div class="md:w-1/2 bg-orange-500 p-10 text-white flex flex-col justify-center">
-            <h1 class="text-4xl font-bold mb-4">ToonHub</h1>
-            <p class="text-lg opacity-90 mb-6">ยินดีต้อนรับสู่คอมมูนิตี้คนรักการ์ตูน อ่านเรื่องย่อ ติดตามสถานะ และจัดอันดับเรื่องโปรดของคุณได้ที่นี่</p>
-            <div class="hidden md:block">
-                <span class="text-sm bg-orange-600 py-1 px-3 rounded-full">#Manga</span>
-                <span class="text-sm bg-orange-600 py-1 px-3 rounded-full">#Manhwa</span>
+        <div class="md:w-1/2 bg-gradient-to-br from-orange-500 to-red-600 p-10 text-white flex flex-col justify-center">
+            <h1 class="text-5xl font-black mb-4">ToonHub</h1>
+            <p class="text-lg opacity-90 mb-6">คอมมูนิตี้คนรักการ์ตูนที่ใหญ่ที่สุด อ่านเรื่องย่อ ติดตามสถานะ และบันทึกเรื่องโปรดของคุณ</p>
+            <div class="flex gap-2">
+                <span class="text-xs font-bold bg-white/20 py-1 px-3 rounded-full border border-white/30 text-white">#Manga</span>
+                <span class="text-xs font-bold bg-white/20 py-1 px-3 rounded-full border border-white/30 text-white">#Manhwa</span>
+                <span class="text-xs font-bold bg-white/20 py-1 px-3 rounded-full border border-white/30 text-white">#Anime</span>
             </div>
         </div>
 
-        <div class="md:w-1/2 p-10">
+        <div class="md:w-1/2 p-12 flex flex-col justify-center bg-gray-50">
             @if (Route::has('login'))
-                @auth
-                    <div class="flex flex-col justify-center h-full">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">ยินดีต้อนรับกลับ!</h2>
-                        <a href="{{ url('/dashboard') }}" class="w-full py-3 px-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-center rounded-lg transition duration-200 shadow-lg">เข้าสู่ระบบจัดการการ์ตูน</a>
-                    </div>
-                @else
-            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">เข้าสู่ระบบ</h2>
-            
-            <form action="/login" method="POST" class="space-y-6">
-                @csrf
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Email Address</label>
-                    <input type="email" name="email" required 
-                        class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500 text-gray-900">
+                <div class="space-y-6">
+                    @auth
+                        <div class="text-center">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">ยินดีต้อนรับกลับ!</h2>
+                            <p class="text-gray-600 mb-8">{{ Auth::user()->name }}</p>
+                            <a href="{{ url('/dashboard') }}" 
+                                class="inline-block w-full py-4 px-6 bg-orange-500 hover:bg-orange-600 text-white font-bold text-center rounded-xl transition duration-300 transform hover:-translate-y-1 shadow-lg">
+                                เข้าสู่ Dashboard
+                            </a>
+                        </div>
+                    @else
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-bold text-gray-800">พร้อมหรือยัง?</h2>
+                            <p class="text-gray-500 mt-2">เข้าสู่ระบบเพื่อจัดการคลังการ์ตูนของคุณ</p>
+                        </div>
+
+                        <div class="flex flex-col gap-4">
+                            <a href="{{ route('login') }}" 
+                                class="w-full py-4 px-6 bg-orange-500 hover:bg-orange-600 text-white font-bold text-center rounded-xl transition duration-300 transform hover:-translate-y-1 shadow-lg">
+                                เข้าสู่ระบบ
+                            </a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" 
+                                    class="w-full py-4 px-6 bg-white border-2 border-orange-500 text-orange-500 font-bold text-center rounded-xl transition duration-300 hover:bg-orange-50">
+                                    สมัครสมาชิกใหม่
+                                </a>
+                            @endif
+                        </div>
+
+                        <div class="mt-10 pt-6 border-t border-gray-200 text-center">
+                            <a href="{{ route('comics.index') }}" class="text-sm text-gray-500 hover:text-orange-500 transition">
+                                ดูรายชื่อการ์ตูนทั้งหมด (Guest Mode)
+                            </a>
+                        </div>
+                    @endauth
                 </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password" required 
-                        class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500 text-gray-900">
-                </div>
-
-                <button type="submit" 
-                    class="w-full py-3 px-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg transition duration-200 shadow-lg">
-                    Login to ToonHub
-                </button>
-            </form>
-
-            <div class="mt-8 text-center">
-                <p class="text-sm text-gray-600">ยังไม่มีบัญชีใช่ไหม? <a href="/register" class="text-orange-500 font-bold hover:underline">สมัครสมาชิก</a></p>
-            </div>
-                @endauth
             @endif
         </div>
 
