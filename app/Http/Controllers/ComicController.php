@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comic;
 use Illuminate\Http\Request;
 
 class ComicController extends Controller
 {
     public function index()
     {
-        $comics = [
-            'Solo Leveling',
-            'One Piece',
-            'Naruto'
-        ];
+        
+        $comics = Comic::with('categories')->latest()->get();
 
-        return view('comics.index', ['comics' => $comics]);
+        return view('comics.index', compact('comics'));
     }
 
-    public function show($comic)
+    public function show(Comic $comic)
     {
-        return view('comics.show', ['comic' => $comic]);
+        return view('comics.show', compact('comic'));
     }
 }
