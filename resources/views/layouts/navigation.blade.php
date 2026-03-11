@@ -15,6 +15,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('comics.index')" :active="request()->routeIs('comics.index')">
+                        {{ __('Comics') }}
+                    </x-nav-link>
+                    @auth
+                        @if(Auth::user()->usertype === 'admin')
+                            <x-nav-link :href="route('comics.create')" :active="request()->routeIs('comics.create')">
+                                {{ __('+ Add Comic') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
@@ -78,6 +88,16 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('comics.index')" :active="request()->routeIs('comics.index')">
+                {{ __('Comics') }}
+            </x-responsive-nav-link>
+            @auth
+                @if(Auth::user()->usertype === 'admin')
+                    <x-responsive-nav-link :href="route('comics.create')" :active="request()->routeIs('comics.create')">
+                        {{ __('+ Add Comic') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
