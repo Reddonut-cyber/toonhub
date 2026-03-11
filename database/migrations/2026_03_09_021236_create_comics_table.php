@@ -17,6 +17,7 @@ return new class extends Migration
         $table->text('summary')->nullable();
         $table->string('status')->default('Ongoing');
         $table->string('comic_web')->nullable();
+        $table->string('image')->nullable();
         
         $table->timestamps();
     });
