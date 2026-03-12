@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Comic;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ComicController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
