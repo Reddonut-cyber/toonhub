@@ -25,7 +25,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Comic::class); // Optional: For admin authorization
+        // $this->authorize('create', Comic::class);
         $categories = Category::orderBy('name')->get();
         return view('comics.create', compact('categories'));
     }
@@ -35,7 +35,7 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Comic::class); // Optional: For admin authorization
+        // $this->authorize('create', Comic::class);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
