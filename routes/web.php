@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ComicController; 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Comic;
+use App\Models\Category;
 use App\Http\Middleware\IsAdminMiddleware;
 
 Route::get('/', function () {
@@ -15,6 +18,16 @@ Route::get('comics', [ComicController::class, 'index'])->name('comics.index');
 // 3. User Zone 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
+        if (auth()->user()->usertype === 'admin') {
+            return view('dashboard', [
+                'totalComics' => Comic::count(),
+                'totalUsers' => User::count(),
+                'totalCategories' => Category::count(),
+                'latestComics' => Comic::latest()->take(5)->get(),
+                'latestUsers' => User::latest()->take(5)->get(),
+                'comics' => Comic::latest()->get(),
+            ]);
+        }
         return view('dashboard');
     })->name('dashboard');
 
