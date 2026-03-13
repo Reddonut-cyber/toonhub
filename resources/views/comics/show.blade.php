@@ -30,11 +30,45 @@
                                 <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                             </a>
 
-                            <div class="flex gap-2" x-data="{ isFavorite: false }">
+                            <div class="flex gap-2" x-data="{ 
+                                isFavorite: {{ Auth::check() && Auth::user()->favorites()->where('comic_id', $comic->id)->exists() ? 'true' : 'false' }},
+                                isLoading: false,
+                                async toggle() {
+                                    if (this.isLoading) return;
+                                    @guest
+                                        window.location.href = '{{ route('login') }}';
+                                        return;
+                                    @endguest
+
+                                    this.isLoading = true;
+                                    const previousState = this.isFavorite;
+                                    this.isFavorite = !this.isFavorite; // Optimistic update
+
+                                    try {
+                                        const response = await fetch('{{ route('comics.favorite', $comic) }}', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                            }
+                                        });
+                                        
+                                        if (!response.ok) throw new Error('Failed to toggle');
+                                        const data = await response.json();
+                                        this.isFavorite = data.attached;
+                                    } catch (error) {
+                                        this.isFavorite = previousState; // Revert on error
+                                        console.error(error);
+                                    } finally {
+                                        this.isLoading = false;
+                                    }
+                                }
+                            }">
                                 <button 
-                                    @click="isFavorite = !isFavorite"
+                                    @click="toggle()"
+                                    :disabled="isLoading"
                                     :class="isFavorite ? 'bg-orange-500 border-orange-500 text-white' : 'bg-white/5 border-white/10 text-gray-400 hover:text-orange-500'"
-                                    class="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl transition-all duration-300 border font-bold group"
+                                    class="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl transition-all duration-300 border font-bold group disabled:opacity-70"
                                 >
                                     <svg 
                                         class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" 
