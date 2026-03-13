@@ -1,59 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ToonHub
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1. Description
+ToonHub is a modern web application designed for reading and managing comics. It features a dual-interface system that provides a personalized experience for readers (Users) and a robust content management system for curators (Admins). The application is built with performance and user experience in mind, utilizing a dark-themed UI optimized for reading.
 
-## About Laravel
+## 2. Key Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### User Features
+- **Authentication:** Secure login and registration system.
+- **Personal Dashboard:** A hub showing "Continue Reading" status and a curated "My Favorites" list.
+- **Comic Discovery:** Browse the latest comics and filter by categories.
+- **Favorites System:** One-click functionality to save comics to a personal library.
+- **Responsive Design:** Optimized for both desktop and mobile viewing.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Admin Features
+- **Admin Control Center:** A dashboard displaying system statistics (Total Comics, Users, Categories).
+- **Comic Management:** Full CRUD (Create, Read, Update, Delete) capabilities for comic entries.
+- **User Monitoring:** Track new member registrations.
+- **Quick Actions:** Shortcuts for adding new content or managing categories.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 3. Tech Stack
 
-## Learning Laravel
+- **Backend Framework:** Laravel (PHP)
+- **Frontend:** 
+  - Blade Templates
+  - Tailwind CSS (Styling)
+  - Alpine.js (Interactivity & State Management)
+- **Database:** MySQL / SQLite
+- **Authentication:** Laravel Breeze
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 4. Data Structure (Entity Relationship)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **User:** Represents the registered users (Admin/User).
+  - *One-to-Many* relationship with **Favorites**.
+- **Comic:** Represents the comic books/series.
+  - *Many-to-Many* relationship with **Categories**.
+  - *Many-to-Many* relationship with **Users** (via Favorites).
+- **Category:** Represents genres or tags (e.g., Action, Romance).
+- **Favorite:** A pivot table linking Users and Comics.
 
-## Laravel Sponsors
+## 5. Installation Instructions
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+To run this project locally, follow these steps:
 
-### Premium Partners
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd toonhub-app
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Install dependencies:**
+   ```bash
+   composer install
+   npm install
+   ```
 
-## Contributing
+3. **Setup Environment:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Database Setup:**
+   Configure your database credentials in the `.env` file, then run:
+   ```bash
+   php artisan migrate
+   ```
 
-## Code of Conduct
+5. **Link Storage:**
+   ```bash
+   php artisan storage:link
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Run the application:**
+   ```bash
+   npm run build
+   php artisan serve
+   ```
