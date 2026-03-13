@@ -76,3 +76,9 @@ To run this project locally, follow these steps:
    npm run build
    php artisan serve
    ```
+
+## 6. Default Admin Account
+
+- **Name:** Super Admin
+- **Email:** `admin@toonhub.com`
+- **Password:** `password`
