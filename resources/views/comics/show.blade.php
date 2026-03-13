@@ -12,7 +12,7 @@
                 
                 <div class="w-full lg:w-1/3 flex-shrink-0">
                     <div class="sticky top-28">
-                        <div class="relative group">
+                        <div class="relative group max-w-[600px] mx-auto">
                             <img src="{{ asset('storage/' . $comic->image) }}" 
                                  class="w-full aspect-[3/4] object-cover rounded-[2.5rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 transition-transform duration-500 group-hover:scale-[1.02]">
                             
